@@ -50,6 +50,7 @@ jobs:
     - name: Free up disk space
       run: |
         df -h
+        docker system prune --all
         docker image ls
         sudo apt clean
         sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc
