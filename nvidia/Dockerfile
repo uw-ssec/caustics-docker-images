@@ -1,8 +1,6 @@
 ARG RELEASE_VERSION=23.11
 FROM nvcr.io/nvidia/pytorch:${RELEASE_VERSION}-py3
 
-ARG CAUSTICS_BRANCH=main
-
 # Setup environment to match variables set by repo2docker as much as possible
 # Tell apt-get to not block installs by asking for interactive human input
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -47,6 +45,14 @@ RUN echo "Installing Apt-get packages..." \
 # Add TZ configuration - https://github.com/PrefectHQ/prefect/issues/3061
 ENV TZ UTC
 # ========================
+
+USER ${NB_USER}
+WORKDIR ${HOME}
+
+# Install caustics
+USER root
+
+ARG CAUSTICS_BRANCH=main
 
 # Install caustics from a branch for now
 RUN echo "Caustics branch: ${CAUSTICS_BRANCH}"

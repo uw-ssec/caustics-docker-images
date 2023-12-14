@@ -29,7 +29,7 @@ jobs:
       matrix:
         # Set the pytorch container version, this uses only -py3
         # See: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch/tags
-        PYTORCH_VERSION: ["23.11", "22.05"]
+        PYTORCH_VERSION: ["23.11"]
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
