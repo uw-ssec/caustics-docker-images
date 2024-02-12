@@ -21,7 +21,7 @@ RUN echo "Installing Apt-get packages..." \
         zip \
         tzdata \
         python3-venv \
-        graphviz \
+        graphviz > /dev/null \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
