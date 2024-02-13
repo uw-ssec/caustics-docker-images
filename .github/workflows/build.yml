@@ -19,7 +19,7 @@ env:
 
 jobs:
     build-images:
-      name: ${{ env.PROJECT_NAME }}-${{ matrix.CAUSTICS_VERSION }}-cuda-${{ matrix.CUDA_VERSION }}
+      name: ${{ matrix.CAUSTICS_VERSION }}-cuda-${{ matrix.CUDA_VERSION }}
       runs-on: ubuntu-latest
       permissions:
         contents: read
