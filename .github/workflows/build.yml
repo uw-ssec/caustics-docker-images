@@ -1,7 +1,6 @@
 # Any commit to master branch re-builds images, re-runs tests, and pushes SHA tags to DockerHub
 name: Build
 on:
-  pull_request:
   push:
     branches:
       - main
@@ -77,7 +76,7 @@ jobs:
           context: ${{ matrix.IMAGE }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          load: true
+          push: true
       
       - name: Inspect Image
         run: |
