@@ -1,6 +1,7 @@
-FROM mambaorg/micromamba:focal-cuda-11.8.0
+ARG CUDA_VERSION=11.8.0
+FROM mambaorg/micromamba:focal-cuda-${CUDA_VERSION}
 
-ARG CAUSTICS_BRANCH=dev
+ARG CAUSTICS_VERSION=0.7.0
 
 # Tell apt-get to not block installs by asking for interactive human input
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -39,8 +40,11 @@ RUN micromamba install --name base --yes --file /tmp/conda-linux-64.lock \
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
 # Install caustics from a branch for now
-RUN echo "Caustics branch: ${CAUSTICS_BRANCH}"
-ENV CAUSTICS_REPO="git+https://github.com/Ciela-Institute/caustics.git@${CAUSTICS_BRANCH}"
-
-RUN echo "Installing caustics" \
-    && pip install --no-cache ${CAUSTICS_REPO}
+ENV CAUSTICS_REPO="git+https://github.com/Ciela-Institute/caustics.git@${CAUSTICS_VERSION}"
+RUN echo "Installing caustics ..." \
+    ; if [ "${CAUSTICS_VERSION}" == "dev" ]; then \
+    echo "Installing from github branch: ${CAUSTICS_VERSION}" \
+    && pip install --no-cache ${CAUSTICS_REPO} \
+    ; else echo "Installing from production distribution version: ${CAUSTICS_VERSION}" ; \
+    pip install caustics==${CAUSTICS_VERSION} \
+    ; fi
