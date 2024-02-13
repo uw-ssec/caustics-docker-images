@@ -72,6 +72,9 @@ jobs:
           load: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            CAUSTICS_VERSION=${{ matrix.CAUSTICS_VERSION }}
+            CUDA_VERSION=${{ matrix.CUDA_VERSION }}
       
       - name: Inspect Image
         run: |
@@ -87,3 +90,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: true
+          build-args: |
+            CAUSTICS_VERSION=${{ matrix.CAUSTICS_VERSION }}
+            CUDA_VERSION=${{ matrix.CUDA_VERSION }}
