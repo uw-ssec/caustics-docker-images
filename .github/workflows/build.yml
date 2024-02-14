@@ -71,6 +71,7 @@ jobs:
           context: .
           platforms: linux/amd64
           load: true
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
@@ -81,8 +82,3 @@ jobs:
         run: |
             docker run ${{ steps.registry_org.outputs.image_base }}/${{ env.PROJECT_NAME }}:${{ matrix.CAUSTICS_VERSION }}-cuda-${{ matrix.CUDA_VERSION }} micromamba list
             docker images ls
-          
-      - name: Push Docker Image
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          docker push --all-tags ${{ steps.registry_org.outputs.image_base }}/${{ env.PROJECT_NAME }}
