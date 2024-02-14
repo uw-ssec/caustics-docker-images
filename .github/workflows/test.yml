@@ -1,0 +1,21 @@
+# Any commit to master branch re-builds images, re-runs tests, and pushes SHA tags to DockerHub
+name: Apptainer Test
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+    test-apptainer:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        packages: write
+      strategy:
+        fail-fast: false
+      steps:
+        - uses: actions/checkout@v2
+        - uses: eWaterCycle/setup-apptainer@v2
+          with:
+            apptainer-version: 1.1.2
+        - name: Run an apptainer container
+          run: apptainer run docker://alpine cat /etc/os-release
