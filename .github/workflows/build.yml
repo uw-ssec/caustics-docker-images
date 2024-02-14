@@ -70,7 +70,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
-          load: true
+          load: ${{ github.ref != 'refs/heads/main' }}
           push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -79,6 +79,7 @@ jobs:
             CUDA_VERSION=${{ matrix.CUDA_VERSION }}
       
       - name: Inspect Image
+        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
             docker run ${{ steps.registry_org.outputs.image_base }}/${{ env.PROJECT_NAME }}:${{ matrix.CAUSTICS_VERSION }}-cuda-${{ matrix.CUDA_VERSION }} micromamba list
             docker images ls
