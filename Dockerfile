@@ -63,7 +63,5 @@ RUN echo "Installing caustics ..." \
     echo "Installing from github branch: ${CAUSTICS_VERSION}..." ; \
     pip install --no-cache "${CAUSTICS_HOME}[dev]" \
     ; else echo "Installing from production distribution version: ${CAUSTICS_VERSION}" ; \
-    pip install caustics==${CAUSTICS_VERSION} ; \
-    # Remove the run-tests script when it's from production
-    rm /bin/run-tests ${CAUSTICS_TEST_SCRIPT} \
+    pip install caustics==${CAUSTICS_VERSION} \
     ; fi
