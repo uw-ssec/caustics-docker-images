@@ -66,7 +66,7 @@ RUN echo "Installing caustics ..." \
     echo "Cloning caustics to ${CAUSTICS_HOME}..." ; \
     git clone -b ${CAUSTICS_VERSION} --single-branch ${CAUSTICS_REPO} ${CAUSTICS_HOME} ; \
     echo "Installing from github branch: ${CAUSTICS_VERSION}..." ; \
-    pip install --no-cache "${CAUSTICS_HOME}[dev]" \
+    pip install -e "${CAUSTICS_HOME}[dev]" \
     ; else echo "Installing from production distribution version: ${CAUSTICS_VERSION}" ; \
     pip install caustics==${CAUSTICS_VERSION} \
     ; fi
